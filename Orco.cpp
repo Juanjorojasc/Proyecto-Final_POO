@@ -1,7 +1,7 @@
 #include "Orco.h"
 #include <iostream>
 
-Orco::Orco() : Enemigo("Orco", 40, 8, 20) {}
+Orco::Orco() : Enemigo("Orco", 40, 8, 30) {}
 
 void Orco::atacar(Entidad& objetivo) {
     std::cout << this->nombre << " golpea con su garrote a " << objetivo.getNombre()

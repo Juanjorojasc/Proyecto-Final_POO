@@ -2,7 +2,7 @@
 #include <iostream>
 
 Jugador::Jugador(const std::string& nombre, int vida, int ataque)
-    : Entidad(nombre, vida, ataque) {}
+    : Entidad(nombre, vida, ataque), nivel(1), experiencia(0) {}
 
 void Jugador::atacar(Entidad& objetivo) {
     std::cout << this->nombre << " ataca a " << objetivo.getNombre()
@@ -38,4 +38,24 @@ bool Jugador::usarObjeto(int indice) {
     this->inventario[indice]->usar(*this);                       // polimorfismo
     this->inventario.erase(this->inventario.begin() + indice);   // se consume
     return true;
+}
+
+int Jugador::getNivel() const { return this->nivel; }
+int Jugador::getExperiencia() const { return this->experiencia; }
+int Jugador::getExperienciaSiguienteNivel() const { return 30 * this->nivel; }
+
+void Jugador::ganarExperiencia(int cantidad) {
+    this->experiencia += cantidad;
+    std::cout << "Ganaste " << cantidad << " puntos de experiencia.\n";
+
+    while (this->experiencia >= this->getExperienciaSiguienteNivel()) {
+        this->experiencia -= this->getExperienciaSiguienteNivel();
+        this->nivel++;
+        this->vidaMaxima += 15;
+        this->vida += 15;
+        this->ataque += 3;
+        std::cout << "*** ¡SUBISTE AL NIVEL " << this->nivel << "! ***\n"
+                  << "Vida máxima: " << this->vidaMaxima
+                  << " | Ataque: " << this->ataque << "\n";
+    }
 }

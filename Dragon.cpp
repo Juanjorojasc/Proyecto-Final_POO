@@ -1,7 +1,7 @@
 #include "Dragon.h"
 #include <iostream>
 
-Dragon::Dragon() : Enemigo("Dragón", 80, 12, 50), turnos(0) {}
+Dragon::Dragon() : Enemigo("Dragón", 100, 12, 50), turnos(0) {}
 
 void Dragon::atacar(Entidad& objetivo) {
     this->turnos++;

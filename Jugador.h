@@ -9,6 +9,8 @@
 class Jugador : public Entidad {
 private:
     std::vector<std::unique_ptr<Objeto>> inventario;
+    int nivel;
+    int experiencia;
 
 public:
     Jugador(const std::string& nombre, int vida, int ataque);
@@ -19,6 +21,11 @@ public:
     bool tieneObjetos() const;
     void mostrarInventario() const;
     bool usarObjeto(int indice);   // true si se uso el objeto
+
+    void ganarExperiencia(int cantidad);
+    int getNivel() const;
+    int getExperiencia() const;
+    int getExperienciaSiguienteNivel() const;
 };
 
 #endif

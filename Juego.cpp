@@ -74,7 +74,10 @@ void Juego::contarHistoria() const {
 void Juego::mostrarEstado() const {
     std::cout << "[" << this->jugador.getNombre() << "] Vida: " << this->jugador.getVida()
               << "/" << this->jugador.getVidaMaxima()
-              << " | Ataque: " << this->jugador.getAtaque() << "\n";
+              << " | Ataque: " << this->jugador.getAtaque()
+              << " | Nivel: " << this->jugador.getNivel()
+              << " (XP " << this->jugador.getExperiencia()
+              << "/" << this->jugador.getExperienciaSiguienteNivel() << ")\n";
 }
 
 std::string Juego::leerLinea() {
@@ -147,6 +150,7 @@ void Juego::combatir(Enemigo& enemigo) {
         this->terminado = true;
     } else {
         std::cout << "\n¡Derrotaste a " << enemigo.getNombre() << "!\n";
+        this->jugador.ganarExperiencia(enemigo.getExperiencia());
     }
 }
 
