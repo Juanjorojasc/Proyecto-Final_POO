@@ -140,10 +140,3 @@ classDiagram
 |--------------|
 | Juan Jose Rojas Canencio  | 
 | Juan Esteban Marin Cardona  | 
-
-## Características adicionales (bonus)
-
-- [ ] Sistema de niveles y experiencia
-- [ ] Armaduras que reducen el daño
-- [ ] Jefe final con habilidades únicas
-- [ ] Guardar y cargar partida
