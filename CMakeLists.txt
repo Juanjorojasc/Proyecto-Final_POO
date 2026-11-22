@@ -10,6 +10,7 @@ add_executable(PROYECTO_FINAL
         Enemigo.cpp Enemigo.h
         Orco.cpp Orco.h
         Dragon.cpp Dragon.h
+        JefeFinal.cpp JefeFinal.h
         Objeto.cpp Objeto.h
         PocionDeVida.cpp PocionDeVida.h
         Espada.cpp Espada.h

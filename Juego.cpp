@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Orco.h"
 #include "Dragon.h"
+#include "JefeFinal.h"
 #include "PocionDeVida.h"
 #include "Espada.h"
 #include "Armadura.h"
@@ -25,7 +26,9 @@ void Juego::crearMapa() {
     auto pasillo = std::make_unique<Habitacion>("Pasillo oscuro",
         "Un pasillo estrecho. Escuchas respiraciones pesadas más adelante.");
     auto guarida = std::make_unique<Habitacion>("Guarida del Dragón",
-        "Una enorme caverna llena de oro y huesos. El aire huele a azufre. Al fondo, el Rey espera encadenado.");
+        "Una enorme caverna llena de oro y huesos. El aire huele a azufre.");
+    auto trono = std::make_unique<Habitacion>("Sala del Trono Oscuro",
+        "Un salón helado con un trono de obsidiana. Al fondo, el Rey espera encadenado.");
 
     biblioteca->agregarObjeto(std::make_unique<PocionDeVida>("Poción grande", 50));
     biblioteca->agregarObjeto(std::make_unique<Armadura>("Armadura de cuero", 3));
@@ -35,6 +38,8 @@ void Juego::crearMapa() {
     pasillo->agregarEnemigo(std::make_unique<Orco>());
     pasillo->agregarObjeto(std::make_unique<PocionDeVida>("Poción media", 30));
     guarida->agregarEnemigo(std::make_unique<Dragon>());
+    guarida->agregarObjeto(std::make_unique<PocionDeVida>("Poción de héroe", 60));
+    trono->agregarEnemigo(std::make_unique<JefeFinal>());
 
     entrada->conectar(biblioteca.get());
     entrada->conectar(pasillo.get());
@@ -44,15 +49,18 @@ void Juego::crearMapa() {
     pasillo->conectar(entrada.get());
     pasillo->conectar(guarida.get());
     guarida->conectar(pasillo.get());
+    guarida->conectar(trono.get());
+    trono->conectar(guarida.get());
 
     this->habitacionActual = entrada.get();
-    this->habitacionFinal = guarida.get();
+    this->habitacionFinal = trono.get();
 
     this->habitaciones.push_back(std::move(entrada));
     this->habitaciones.push_back(std::move(biblioteca));
     this->habitaciones.push_back(std::move(cripta));
     this->habitaciones.push_back(std::move(pasillo));
     this->habitaciones.push_back(std::move(guarida));
+    this->habitaciones.push_back(std::move(trono));
 }
 
 void Juego::entregarEquipo() {
@@ -62,11 +70,11 @@ void Juego::entregarEquipo() {
 
 void Juego::contarHistoria() const {
     std::cout << "\n--- LA HISTORIA ---\n";
-    std::cout << "El Dragón ha secuestrado al Rey y lo mantiene encadenado en su guarida,\n";
-    std::cout << "al fondo de la montaña. Sus orcos vigilan cada rincón.\n";
+    std::cout << "El Señor Oscuro ha secuestrado al Rey y lo mantiene encadenado en su trono,\n";
+    std::cout << "al fondo de la montaña. Sus orcos y un Dragón vigilan cada rincón.\n";
     std::cout << "La única esperanza es la Operación Jaque: una misión secreta\n";
     std::cout << "de un solo soldado. Ese soldado eres tú, " << this->jugador.getNombre() << ".\n";
-    std::cout << "\nOBJETIVO: llega a la Guarida, derrota al Dragón y rescata al Rey.\n";
+    std::cout << "\nOBJETIVO: llega al Trono Oscuro, derrota al Señor Oscuro y rescata al Rey.\n";
 
     std::cout << "\nAntes de partir, el comandante te entrega este equipo:\n";
     this->jugador.mostrarInventario();
@@ -194,15 +202,16 @@ void Juego::iniciar() {
         this->habitacionActual->mostrar();
 
         Enemigo* enemigo = this->habitacionActual->getEnemigoVivo();
-        if (enemigo != nullptr) {
+        while (enemigo != nullptr && !this->terminado) {
             this->combatir(*enemigo);
-            if (this->terminado) break;
+            enemigo = this->habitacionActual->getEnemigoVivo();
         }
+        if (this->terminado) break;
 
         this->recogerObjetos();
 
         if (this->habitacionActual == this->habitacionFinal) {
-            std::cout << "\n*** ¡JAQUE MATE! Derrotaste al Dragón y rescataste al Rey. ***\n";
+            std::cout << "\n*** ¡JAQUE MATE! Derrotaste al Señor Oscuro y rescataste al Rey. ***\n";
             break;
         }
 
