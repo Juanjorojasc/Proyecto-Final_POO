@@ -4,6 +4,7 @@
 #include "Dragon.h"
 #include "PocionDeVida.h"
 #include "Espada.h"
+#include "Armadura.h"
 
 Juego::Juego(const std::string& nombreJugador)
     : jugador(nombreJugador, 100, 10),
@@ -27,8 +28,10 @@ void Juego::crearMapa() {
         "Una enorme caverna llena de oro y huesos. El aire huele a azufre. Al fondo, el Rey espera encadenado.");
 
     biblioteca->agregarObjeto(std::make_unique<PocionDeVida>("Poción grande", 50));
+    biblioteca->agregarObjeto(std::make_unique<Armadura>("Armadura de cuero", 3));
     cripta->agregarEnemigo(std::make_unique<Orco>());
     cripta->agregarObjeto(std::make_unique<Espada>("Espada de plata", 8));
+    cripta->agregarObjeto(std::make_unique<Armadura>("Escudo de hierro", 2));
     pasillo->agregarEnemigo(std::make_unique<Orco>());
     pasillo->agregarObjeto(std::make_unique<PocionDeVida>("Poción media", 30));
     guarida->agregarEnemigo(std::make_unique<Dragon>());
@@ -75,6 +78,7 @@ void Juego::mostrarEstado() const {
     std::cout << "[" << this->jugador.getNombre() << "] Vida: " << this->jugador.getVida()
               << "/" << this->jugador.getVidaMaxima()
               << " | Ataque: " << this->jugador.getAtaque()
+              << " | Defensa: " << this->jugador.getDefensa()
               << " | Nivel: " << this->jugador.getNivel()
               << " (XP " << this->jugador.getExperiencia()
               << "/" << this->jugador.getExperienciaSiguienteNivel() << ")\n";

@@ -13,6 +13,7 @@ add_executable(PROYECTO_FINAL
         Objeto.cpp Objeto.h
         PocionDeVida.cpp PocionDeVida.h
         Espada.cpp Espada.h
+        Armadura.cpp Armadura.h
         Jugador.cpp Jugador.h
         Habitacion.cpp Habitacion.h
         Juego.cpp Juego.h)

@@ -5,9 +5,9 @@ Jugador::Jugador(const std::string& nombre, int vida, int ataque)
     : Entidad(nombre, vida, ataque), nivel(1), experiencia(0) {}
 
 void Jugador::atacar(Entidad& objetivo) {
+    int danio = objetivo.recibirDanio(this->ataque);
     std::cout << this->nombre << " ataca a " << objetivo.getNombre()
-              << " y le hace " << this->ataque << " de daño.\n";
-    objetivo.recibirDanio(this->ataque);
+              << " y le hace " << danio << " de daño.\n";
 }
 
 void Jugador::agregarObjeto(std::unique_ptr<Objeto> objeto) {
