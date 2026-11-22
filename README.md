@@ -136,10 +136,10 @@ classDiagram
 
 ## Equipo
 
-| Integrante | GitHub | Responsabilidades |
-|------------|--------|-------------------|
-| Juan Rojas | [@Juanjorojasc](https://github.com/Juanjorojasc) | (completar) |
-| (nombre del compañero) | (usuario) | (completar) |
+| Integrante   | 
+|--------------|
+| Juan Jose Rojas Canencio  | 
+| Juan Esteban Marin Cardona  | 
 
 ## Características adicionales (bonus)
 
